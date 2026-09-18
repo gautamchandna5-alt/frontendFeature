@@ -11,33 +11,51 @@ export interface MonthData {
   categories: Category[];
 }
 
-// A helper array to assign nice colors to the random DummyJSON products
-const COLORS = ["#3B82F6", "#10B981", "#F59E0B", "#8B5CF6", "#EF4444"];
-const MONTH_NAMES = ["January", "February", "March", "April"];
+const COLORS = [
+  "#3B82F6", // blue
+  "#10B981", // emerald
+  "#F59E0B", // amber
+  "#8B5CF6", // violet
+  "#EF4444", // red
+  "#06B6D4", // cyan
+  "#D946EF", // fuchsia
+  "#84CC16", // lime
+];
+
+// Helper to calculate perfect totals
+const calculateTotal = (categories: Omit<Category, 'color'>[]) => 
+  categories.reduce((sum, cat) => sum + cat.amount, 0);
+
+const generateCategories = (amounts: number[]) => {
+  const names = ["Rent", "Tuition", "Groceries", "Utilities", "Transport", "Internet", "Dining Out", "Healthcare"];
+  return names.map((name, i) => ({
+    name,
+    amount: amounts[i],
+    color: COLORS[i]
+  }));
+};
+
+const EXPENSE_DATA: MonthData[] = [
+  {
+    id: "jan", month: "January", total: 0,
+    categories: generateCategories([1200, 800, 450, 150, 120, 80, 200, 100])
+  },
+  {
+    id: "feb", month: "February", total: 0,
+    categories: generateCategories([1200, 800, 420, 145, 110, 80, 150, 90])
+  },
+  {
+    id: "mar", month: "March", total: 0,
+    categories: generateCategories([1200, 800, 500, 160, 140, 80, 250, 120])
+  },
+  {
+    id: "apr", month: "April", total: 0,
+    categories: generateCategories([1200, 800, 480, 150, 130, 80, 180, 80])
+  }
+].map(month => ({ ...month, total: calculateTotal(month.categories) }));
 
 export const fetchExpenses = async (): Promise<MonthData[]> => {
-  // Fetch 4 shopping carts from the real DummyJSON API
-  const response = await fetch('https://dummyjson.com/carts?limit=4');
-  
-  if (!response.ok) {
-    throw new Error('Network response was not ok');
-  }
-  
-  const data = await response.json();
-  console.log(data)
-
-  // Transform the DummyJSON cart data into our Expense format
-  return data.carts.map((cart: any, index: number) => {
-    return {
-      id: cart.id.toString(),
-      month: MONTH_NAMES[index], // Fake the month name for the UI
-      total: cart.total,
-      // Take up to 5 products from the cart to act as our pie chart slices
-      categories: cart.products.slice(0, 5).map((product: any, i: number) => ({
-        name: product.title.substring(0, 15) + (product.title.length > 15 ? '...' : ''), // Truncate long names
-        amount: product.total,
-        color: COLORS[i % COLORS.length] 
-      }))
-    };
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(EXPENSE_DATA), 400); // Faster initial load
   });
 };

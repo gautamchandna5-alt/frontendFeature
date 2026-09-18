@@ -49,7 +49,7 @@ export default function ExpenseDashboard() {
 
         {/* Right Side: Chart & Legend */}
         <div className="flex flex-col items-center justify-center">
-          <DonutChart data={activeData} />
+          <DonutChart data={activeData} allData={data} />
           
           {/* Legend */}
           <div className="mt-8 flex flex-wrap gap-4 justify-center">
