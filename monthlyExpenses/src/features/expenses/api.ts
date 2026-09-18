@@ -11,7 +11,6 @@ export interface MonthData {
   categories: Category[];
 }
 
-// Token Architecture: Referencing CSS variables instead of scattered hex values
 const COLORS = [
   "var(--color-chart-1)",
   "var(--color-chart-2)",

@@ -16,10 +16,17 @@ const queryClient = new QueryClient({
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      {/* React 18+ Suspense Boundary handles the loading state natively */}
       <Suspense 
         fallback={
-          <div className="min-h-screen w-full flex items-center justify-center bg-slate-50 font-sans text-slate-500 animate-pulse">
+          <div className="min-h-screen 
+                            w-full 
+                            flex 
+                            items-center 
+                            justify-center 
+                            bg-slate-50 
+                            font-sans 
+                            text-slate-500 
+                            animate-pulse">
             Loading dashboard architecture...
           </div>
         }

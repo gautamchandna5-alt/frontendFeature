@@ -11,10 +11,8 @@ interface Props {
 export default function DonutChart({ data, allData }: Props) {
   const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
   
-  // Accessibility: Detect OS-level motion preferences
   const shouldReduceMotion = useReducedMotion();
   
-  // Conditionally remove animations if reduced motion is requested, strictly typed for TypeScript
   const springTransition: Transition = shouldReduceMotion 
     ? { duration: 0 } 
     : { type: "spring", stiffness: 350, damping: 22 };
