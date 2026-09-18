@@ -1,18 +1,14 @@
+import { Suspense } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import ExpenseDashboard from './features/expenses/ExpenseDashboard';
 
-// Explicit caching strategy
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      // Data remains "fresh" for 5 minutes. No background refetching will occur during this time.
-      staleTime: 1000 * 60 * 5, 
-      // Keep data in the cache for 10 minutes before garbage collecting it.
+      staleTime: 1000 * 60 * 5,
       gcTime: 1000 * 60 * 10,
-      // Prevents the random DummyJSON data from shifting when the user switches browser tabs
-      refetchOnWindowFocus: false, 
-      // Do not automatically retry if DummyJSON throws a 500 error
-      retry: 1, 
+      refetchOnWindowFocus: false,
+      retry: 1,
     },
   },
 });
@@ -20,7 +16,16 @@ const queryClient = new QueryClient({
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <ExpenseDashboard />
+      {/* React 18+ Suspense Boundary handles the loading state natively */}
+      <Suspense 
+        fallback={
+          <div className="min-h-screen w-full flex items-center justify-center bg-slate-50 font-sans text-slate-500 animate-pulse">
+            Loading dashboard architecture...
+          </div>
+        }
+      >
+        <ExpenseDashboard />
+      </Suspense>
     </QueryClientProvider>
   );
 }
