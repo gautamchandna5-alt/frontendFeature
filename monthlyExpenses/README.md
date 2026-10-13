@@ -37,8 +37,3 @@ The animations are designed to be purposeful, physics-based, and highly performa
 * **Semantic HTML:** The layout relies on `<section>`, `<aside>`, and `<main>` landmarks rather than generic `<div>` wrappers.
 * **Reduced Motion:** Integrated `useReducedMotion` to automatically detect the user's OS-level accessibility preferences. If enabled, the spring physics and drawing durations are instantly zeroed out, respecting the user's settings.
 * **Keyboard Navigation:** The SVG hitboxes include `tabIndex={0}` and map `onFocus`/`onBlur` to the hover states, ensuring keyboard users receive the exact same visual micro-interactions as mouse users.
-
-## Tradeoffs & Future Improvements (With 6-8 more hours)
-1. **Dark Mode Implementation:** I would expand the CSS variables in `index.css` with an `@media (prefers-color-scheme: dark)` block and a state toggle. The token architecture is already perfectly set up to handle this instantly.
-2. **Error Boundaries:** While Suspense handles the loading states cleanly, I would implement `react-error-boundary` around the widgets to provide granular, localized fallback UIs if the DummyJSON network request fails, rather than failing the whole page.
-3. **E2E Testing:** I would write a quick Playwright suite to verify the hover calculations and ensure the SVG coordinates don't break under different viewport stresses.
