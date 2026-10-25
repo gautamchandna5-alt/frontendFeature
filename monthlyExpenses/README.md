@@ -4,7 +4,7 @@ This project is an interactive, scroll-triggered expense breakdown dashboard. It
 Rather than a pixel-perfect clone of the reference video, I focused on structural integrity: building a data-agnostic, responsive layout with fluid typography, mathematically perfect SVG charts, and a robust caching layer.
 
 ## Architecture & Technologies
-* **Framework:** React 18 (Vite)
+* **Framework:** React 19 (Vite)
 * **Data State:** TanStack Query v5
 * **Styling:** Tailwind CSS v4 (Custom Theme configuration)
 * **Animation:** Framer Motion
